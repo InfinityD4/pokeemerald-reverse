@@ -38,8 +38,8 @@
  *
  */
 
-#define MAP_WIDTH 28
-#define MAP_HEIGHT 15
+#define MAP_WIDTH 40
+#define MAP_HEIGHT 19
 #define MAPCURSOR_X_MIN 1
 #define MAPCURSOR_Y_MIN 2
 #define MAPCURSOR_X_MAX (MAPCURSOR_X_MIN + MAP_WIDTH - 1)
@@ -583,7 +583,9 @@ bool8 LoadRegionMapGfx(void)
     case 6:
         if (sRegionMap->zoomed == FALSE)
         {
-            CalcZoomScrollParams(0, 0, 0, 0, 0x100, 0x100, 0);
+            sRegionMap->scrollX = 0;
+            sRegionMap->scrollY = 0;
+            CalcZoomScrollParams(sRegionMap->scrollX, sRegionMap->scrollY, 0, 0, 0x100, 0x100, 0);
         }
         else
         {
@@ -691,7 +693,38 @@ static u8 ProcessRegionMapInput_Full(void)
 static u8 MoveRegionMapCursor_Full(void)
 {
     u16 mapSecId;
+    u16 xOffset;
+    u16 yOffset;
 
+    xOffset = 0;
+    yOffset = 0;
+
+
+    if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 13){
+        if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 14 && sRegionMap->cursorDeltaX > 0))
+            {
+
+            }
+            else
+            {
+                sRegionMap->scrollX += sRegionMap->cursorDeltaX * 2;
+            }
+        
+        //sRegionMap->scrollX = (sRegionMap->cursorPosX - 15) * 8;
+    }
+    if (sRegionMap->cursorPosY > 7 && sRegionMap->cursorPosY < MAPCURSOR_Y_MAX - 6){
+        if ((sRegionMap->cursorPosY == 8 && sRegionMap->cursorDeltaY < 0) || (sRegionMap->cursorPosY == MAPCURSOR_Y_MAX - 7 && sRegionMap->cursorDeltaY > 0))
+        {
+
+        }
+        else
+        {
+            sRegionMap->scrollY += sRegionMap->cursorDeltaY * 2;
+        }    
+        
+        //sRegionMap->scrollY = (sRegionMap->cursorPosY - 8) * 8;
+    }
+    RegionMap_SetBG2XAndBG2Y(-28 + sRegionMap->scrollX, -36 + sRegionMap->scrollY);
     if (sRegionMap->cursorMovementFrameCounter != 0)
         return MAP_INPUT_MOVE_CONT;
 
@@ -711,7 +744,6 @@ static u8 MoveRegionMapCursor_Full(void)
     {
         sRegionMap->cursorPosY--;
     }
-
     mapSecId = GetMapSecIdAt(sRegionMap->cursorPosX, sRegionMap->cursorPosY);
     sRegionMap->mapSecType = GetMapsecType(mapSecId);
     if (mapSecId != sRegionMap->mapSecId)
@@ -720,6 +752,8 @@ static u8 MoveRegionMapCursor_Full(void)
         GetMapName(sRegionMap->mapSecName, sRegionMap->mapSecId, MAP_NAME_LENGTH);
     }
     GetPositionOfCursorWithinMapSec();
+
+
     sRegionMap->inputCallback = ProcessRegionMapInput_Full;
     return MAP_INPUT_MOVE_END;
 }
@@ -736,7 +770,7 @@ static u8 ProcessRegionMapInput_Zoomed(void)
         sRegionMap->zoomedCursorDeltaY = -1;
         input = MAP_INPUT_MOVE_START;
     }
-    if (JOY_HELD(DPAD_DOWN) && sRegionMap->scrollY < 0x3c)
+    if (JOY_HELD(DPAD_DOWN) && sRegionMap->scrollY < 0x5c)
     {
         sRegionMap->zoomedCursorDeltaY = +1;
         input = MAP_INPUT_MOVE_START;
@@ -746,7 +780,7 @@ static u8 ProcessRegionMapInput_Zoomed(void)
         sRegionMap->zoomedCursorDeltaX = -1;
         input = MAP_INPUT_MOVE_START;
     }
-    if (JOY_HELD(DPAD_RIGHT) && sRegionMap->scrollX < 0xac)
+    if (JOY_HELD(DPAD_RIGHT) && sRegionMap->scrollX < 0x10C)
     {
         sRegionMap->zoomedCursorDeltaX = +1;
         input = MAP_INPUT_MOVE_START;
@@ -1361,8 +1395,32 @@ static void SpriteCB_CursorMapFull(struct Sprite *sprite)
 {
     if (sRegionMap->cursorMovementFrameCounter != 0)
     {
-        sprite->x += 2 * sRegionMap->cursorDeltaX;
-        sprite->y += 2 * sRegionMap->cursorDeltaY;
+        if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 13)
+        {
+            if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 14 && sRegionMap->cursorDeltaX > 0))
+            {
+
+            }
+            else
+            {
+                sprite->x -= 2 * (sRegionMap->cursorDeltaX);
+            }
+        }
+
+        if (sRegionMap->cursorPosY > 7 && sRegionMap->cursorPosY < MAPCURSOR_Y_MAX - 6)
+        {
+            if ((sRegionMap->cursorPosY == 8 && sRegionMap->cursorDeltaY < 0) || (sRegionMap->cursorPosY == MAPCURSOR_Y_MAX - 7 && sRegionMap->cursorDeltaY > 0))
+            {
+
+            }
+            else
+            {
+                sprite->y -= 2 * (sRegionMap->cursorDeltaY);
+            }
+        }
+        
+        sprite->x += 2 * (sRegionMap->cursorDeltaX);
+        sprite->y += 2 * (sRegionMap->cursorDeltaY);
         sRegionMap->cursorMovementFrameCounter--;
     }
 }
