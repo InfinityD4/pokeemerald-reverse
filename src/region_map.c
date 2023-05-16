@@ -38,8 +38,8 @@
  *
  */
 
-#define MAP_WIDTH 40
-#define MAP_HEIGHT 19
+#define MAP_WIDTH 28
+#define MAP_HEIGHT 15
 #define MAPCURSOR_X_MIN 1
 #define MAPCURSOR_Y_MIN 2
 #define MAPCURSOR_X_MAX (MAPCURSOR_X_MIN + MAP_WIDTH - 1)
@@ -583,9 +583,13 @@ bool8 LoadRegionMapGfx(void)
     case 6:
         if (sRegionMap->zoomed == FALSE)
         {
+<<<<<<< Updated upstream
             sRegionMap->scrollX = 0;
             sRegionMap->scrollY = 0;
             CalcZoomScrollParams(sRegionMap->scrollX, sRegionMap->scrollY, 0, 0, 0x100, 0x100, 0);
+=======
+            CalcZoomScrollParams(0, 0, 0, 0, 0x100, 0x100, 0);
+>>>>>>> Stashed changes
         }
         else
         {
@@ -693,9 +697,8 @@ static u8 ProcessRegionMapInput_Full(void)
 static u8 MoveRegionMapCursor_Full(void)
 {
     u16 mapSecId;
-    u16 xOffset;
-    u16 yOffset;
 
+<<<<<<< Updated upstream
     xOffset = 0;
     yOffset = 0;
 
@@ -725,6 +728,8 @@ static u8 MoveRegionMapCursor_Full(void)
         //sRegionMap->scrollY = (sRegionMap->cursorPosY - 8) * 8;
     }
     RegionMap_SetBG2XAndBG2Y(-28 + sRegionMap->scrollX, -36 + sRegionMap->scrollY);
+=======
+>>>>>>> Stashed changes
     if (sRegionMap->cursorMovementFrameCounter != 0)
         return MAP_INPUT_MOVE_CONT;
 
@@ -744,6 +749,7 @@ static u8 MoveRegionMapCursor_Full(void)
     {
         sRegionMap->cursorPosY--;
     }
+
     mapSecId = GetMapSecIdAt(sRegionMap->cursorPosX, sRegionMap->cursorPosY);
     sRegionMap->mapSecType = GetMapsecType(mapSecId);
     if (mapSecId != sRegionMap->mapSecId)
@@ -752,8 +758,6 @@ static u8 MoveRegionMapCursor_Full(void)
         GetMapName(sRegionMap->mapSecName, sRegionMap->mapSecId, MAP_NAME_LENGTH);
     }
     GetPositionOfCursorWithinMapSec();
-
-
     sRegionMap->inputCallback = ProcessRegionMapInput_Full;
     return MAP_INPUT_MOVE_END;
 }
@@ -770,7 +774,7 @@ static u8 ProcessRegionMapInput_Zoomed(void)
         sRegionMap->zoomedCursorDeltaY = -1;
         input = MAP_INPUT_MOVE_START;
     }
-    if (JOY_HELD(DPAD_DOWN) && sRegionMap->scrollY < 0x5c)
+    if (JOY_HELD(DPAD_DOWN) && sRegionMap->scrollY < 0x3c)
     {
         sRegionMap->zoomedCursorDeltaY = +1;
         input = MAP_INPUT_MOVE_START;
@@ -780,7 +784,7 @@ static u8 ProcessRegionMapInput_Zoomed(void)
         sRegionMap->zoomedCursorDeltaX = -1;
         input = MAP_INPUT_MOVE_START;
     }
-    if (JOY_HELD(DPAD_RIGHT) && sRegionMap->scrollX < 0x10C)
+    if (JOY_HELD(DPAD_RIGHT) && sRegionMap->scrollX < 0xac)
     {
         sRegionMap->zoomedCursorDeltaX = +1;
         input = MAP_INPUT_MOVE_START;
@@ -1395,6 +1399,7 @@ static void SpriteCB_CursorMapFull(struct Sprite *sprite)
 {
     if (sRegionMap->cursorMovementFrameCounter != 0)
     {
+<<<<<<< Updated upstream
         if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 13)
         {
             if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 14 && sRegionMap->cursorDeltaX > 0))
@@ -1421,6 +1426,10 @@ static void SpriteCB_CursorMapFull(struct Sprite *sprite)
         
         sprite->x += 2 * (sRegionMap->cursorDeltaX);
         sprite->y += 2 * (sRegionMap->cursorDeltaY);
+=======
+        sprite->x += 2 * sRegionMap->cursorDeltaX;
+        sprite->y += 2 * sRegionMap->cursorDeltaY;
+>>>>>>> Stashed changes
         sRegionMap->cursorMovementFrameCounter--;
     }
 }
