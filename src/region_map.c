@@ -583,13 +583,7 @@ bool8 LoadRegionMapGfx(void)
     case 6:
         if (sRegionMap->zoomed == FALSE)
         {
-<<<<<<< Updated upstream
-            sRegionMap->scrollX = 0;
-            sRegionMap->scrollY = 0;
-            CalcZoomScrollParams(sRegionMap->scrollX, sRegionMap->scrollY, 0, 0, 0x100, 0x100, 0);
-=======
             CalcZoomScrollParams(0, 0, 0, 0, 0x100, 0x100, 0);
->>>>>>> Stashed changes
         }
         else
         {
@@ -698,38 +692,6 @@ static u8 MoveRegionMapCursor_Full(void)
 {
     u16 mapSecId;
 
-<<<<<<< Updated upstream
-    xOffset = 0;
-    yOffset = 0;
-
-
-    if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 13){
-        if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 14 && sRegionMap->cursorDeltaX > 0))
-            {
-
-            }
-            else
-            {
-                sRegionMap->scrollX += sRegionMap->cursorDeltaX * 2;
-            }
-        
-        //sRegionMap->scrollX = (sRegionMap->cursorPosX - 15) * 8;
-    }
-    if (sRegionMap->cursorPosY > 7 && sRegionMap->cursorPosY < MAPCURSOR_Y_MAX - 6){
-        if ((sRegionMap->cursorPosY == 8 && sRegionMap->cursorDeltaY < 0) || (sRegionMap->cursorPosY == MAPCURSOR_Y_MAX - 7 && sRegionMap->cursorDeltaY > 0))
-        {
-
-        }
-        else
-        {
-            sRegionMap->scrollY += sRegionMap->cursorDeltaY * 2;
-        }    
-        
-        //sRegionMap->scrollY = (sRegionMap->cursorPosY - 8) * 8;
-    }
-    RegionMap_SetBG2XAndBG2Y(-28 + sRegionMap->scrollX, -36 + sRegionMap->scrollY);
-=======
->>>>>>> Stashed changes
     if (sRegionMap->cursorMovementFrameCounter != 0)
         return MAP_INPUT_MOVE_CONT;
 
@@ -1399,37 +1361,8 @@ static void SpriteCB_CursorMapFull(struct Sprite *sprite)
 {
     if (sRegionMap->cursorMovementFrameCounter != 0)
     {
-<<<<<<< Updated upstream
-        if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 13)
-        {
-            if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 14 && sRegionMap->cursorDeltaX > 0))
-            {
-
-            }
-            else
-            {
-                sprite->x -= 2 * (sRegionMap->cursorDeltaX);
-            }
-        }
-
-        if (sRegionMap->cursorPosY > 7 && sRegionMap->cursorPosY < MAPCURSOR_Y_MAX - 6)
-        {
-            if ((sRegionMap->cursorPosY == 8 && sRegionMap->cursorDeltaY < 0) || (sRegionMap->cursorPosY == MAPCURSOR_Y_MAX - 7 && sRegionMap->cursorDeltaY > 0))
-            {
-
-            }
-            else
-            {
-                sprite->y -= 2 * (sRegionMap->cursorDeltaY);
-            }
-        }
-        
-        sprite->x += 2 * (sRegionMap->cursorDeltaX);
-        sprite->y += 2 * (sRegionMap->cursorDeltaY);
-=======
         sprite->x += 2 * sRegionMap->cursorDeltaX;
         sprite->y += 2 * sRegionMap->cursorDeltaY;
->>>>>>> Stashed changes
         sRegionMap->cursorMovementFrameCounter--;
     }
 }
