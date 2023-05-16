@@ -583,8 +583,17 @@ bool8 LoadRegionMapGfx(void)
     case 6:
         if (sRegionMap->zoomed == FALSE)
         {
-            sRegionMap->scrollX = 0;
-            sRegionMap->scrollY = 0;
+            if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 12){
+                sRegionMap->scrollX = (sRegionMap->cursorPosX - 15) * 8;
+            }
+            else if (sRegionMap->cursorPosX > MAPCURSOR_X_MAX - 13){
+                sRegionMap->scrollX = (sRegionMap->cursorPosX - (MAPCURSOR_X_MAX - 13)) * 8;
+            }
+            else{
+                sRegionMap->scrollX = 0;
+            }
+            
+            sRegionMap->scrollY = 0; //(sRegionMap->cursorPosY - 1) * 8;;
             CalcZoomScrollParams(sRegionMap->scrollX, sRegionMap->scrollY, 0, 0, 0x100, 0x100, 0);
         }
         else
@@ -700,8 +709,8 @@ static u8 MoveRegionMapCursor_Full(void)
     yOffset = 0;
 
 
-    if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 13){
-        if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 14 && sRegionMap->cursorDeltaX > 0))
+    if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 12){
+        if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 13 && sRegionMap->cursorDeltaX > 0))
             {
 
             }
@@ -1395,9 +1404,9 @@ static void SpriteCB_CursorMapFull(struct Sprite *sprite)
 {
     if (sRegionMap->cursorMovementFrameCounter != 0)
     {
-        if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 13)
+        if (sRegionMap->cursorPosX > 14 && sRegionMap->cursorPosX < MAPCURSOR_X_MAX - 12)
         {
-            if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 14 && sRegionMap->cursorDeltaX > 0))
+            if ((sRegionMap->cursorPosX == 15 && sRegionMap->cursorDeltaX < 0) || (sRegionMap->cursorPosX == MAPCURSOR_X_MAX - 13 && sRegionMap->cursorDeltaX > 0))
             {
 
             }
