@@ -214,8 +214,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BLACK_BELT",
-      "x": 19,
-      "y": 25,
+      "x": 21,
+      "y": 24,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_WALK_IN_PLACE_DOWN",
       "movement_range_x": 3,
@@ -346,7 +346,7 @@
     {
       "type": "trigger",
       "x": 32,
-      "y": 27,
+      "y": 28,
       "elevation": 0,
       "var": "VAR_TEMP_1",
       "var_value": "0",
@@ -355,7 +355,7 @@
     {
       "type": "trigger",
       "x": 33,
-      "y": 27,
+      "y": 28,
       "elevation": 0,
       "var": "VAR_TEMP_1",
       "var_value": "0",

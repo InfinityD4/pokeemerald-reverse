@@ -65,6 +65,7 @@
 #define MAP_UNDERWATER_ROUTE125  (56 | (0 << 8))
 #define MAP_METEOR_FALLS_ROOF    (57 | (0 << 8))
 #define MAP_LIME_TUNNEL_EXTERIOR (58 | (0 << 8))
+#define MAP_ROUTE111_BORDER      (59 | (0 << 8))
 
 // gMapGroup_IndoorLittleroot
 #define MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F    (0 | (1 << 8))
@@ -403,6 +404,7 @@
 #define MAP_ALTERING_CAVE                            (106 | (24 << 8))
 #define MAP_METEOR_FALLS_STEVENS_CAVE                (107 | (24 << 8))
 #define MAP_LIME_TUNNEL_1F                           (108 | (24 << 8))
+#define MAP_LIME_TUNNEL_B1_C                         (109 | (24 << 8))
 
 // gMapGroup_IndoorDynamic
 #define MAP_SECRET_BASE_RED_CAVE1    (0 | (25 << 8))

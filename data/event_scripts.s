@@ -1065,3 +1065,7 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/maps/LimeTunnelExterior/scripts.inc"
 
 	.include "data/maps/LimeTunnel_1F/scripts.inc"
+
+	.include "data/maps/LimeTunnel_B1_C/scripts.inc"
+
+	.include "data/maps/Route111_Border/scripts.inc"

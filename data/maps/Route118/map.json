@@ -32,6 +32,11 @@
       "map": "MAP_ROUTE110",
       "offset": -40,
       "direction": "down"
+    },
+    {
+      "map": "MAP_LIME_TUNNEL_EXTERIOR",
+      "offset": 40,
+      "direction": "down"
     }
   ],
   "object_events": [
