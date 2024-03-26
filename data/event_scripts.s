@@ -1071,3 +1071,13 @@ EventScript_VsSeekerChargingDone::
 	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
+
+	.include "data/maps/MeteorFallsRoof/scripts.inc"
+
+	.include "data/maps/LimeTunnelExterior/scripts.inc"
+
+	.include "data/maps/LimeTunnel_1F/scripts.inc"
+
+	.include "data/maps/LimeTunnel_B1_C/scripts.inc"
+
+	.include "data/maps/Route111_Border/scripts.inc"
